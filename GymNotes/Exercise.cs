@@ -57,7 +57,7 @@ namespace GymNotes
         {
             if (groups == null || groups.Count == 0)
                 return Items; // TODO: empty fields message
-            var result = Items;
+            var result = new List<Exercise>(Items);
             foreach (var muscleGroup in groups)
             {
                 result.RemoveAll(e => !e.EnvolvedGroups.Contains(muscleGroup));
