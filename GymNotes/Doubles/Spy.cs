@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymNotes.Doubles
 {
-    public class ExerciseSpy
+    public class Spy
     {
         public List<MethodCall> Calls = new List<MethodCall>();
 

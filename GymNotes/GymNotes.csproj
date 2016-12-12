@@ -42,8 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrentTraining.cs" />
+    <Compile Include="Doubles\ExerciseSpy.cs" />
+    <Compile Include="Doubles\FakeDbController.cs" />
     <Compile Include="Doubles\Spy.cs" />
-    <Compile Include="Exercise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SavedTraining.cs" />
     <Compile Include="Set.cs" />

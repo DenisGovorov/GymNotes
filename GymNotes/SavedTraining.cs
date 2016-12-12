@@ -12,6 +12,7 @@ namespace GymNotes
         public DateTime StarTime;
         public TimeSpan Duration;
         private List<DummySet> _sets = new List<DummySet>();
+        public Guid Id { get; private set; }
         public static void Add(CurrentTraining current, DateTime time)
         {
             var training = new SavedTraining()
@@ -19,6 +20,7 @@ namespace GymNotes
                 _sets = current.GetSets(),
                 StarTime = current.StarTime,
                 Duration =  time - current.StarTime,
+                
             };
             _history.Add(training);
         }
@@ -26,6 +28,25 @@ namespace GymNotes
         public static List<SavedTraining> GetTrainingHistory()
         {
             return _history;
+        }
+        public static void RemoveAll()
+        {
+            _history.Clear();
+        }
+        public static void LoadDb(List<SavedTraining> data)
+        {
+            _history.Clear();
+            _history = data;
+        }
+
+        public SavedTraining()
+        {
+            Id = Guid.NewGuid();
+        }
+        public SavedTraining(DateTime startTime)
+        {
+            StarTime = startTime;
+            Id = Guid.NewGuid();
         }
     }
 

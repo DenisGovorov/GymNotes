@@ -7,9 +7,9 @@ using GymNotes.Doubles;
 
 namespace GymNotes
 {
-    public class Exercise
+    public class ExerciseSpy
     {
-        private static List<Exercise> _items = new List<Exercise>();
+        private static List<ExerciseSpy> _items = new List<ExerciseSpy>();
 
         public string Name { get; private set; }
         public enum ExerciseType { Weighted, Unweigted, Distance }
@@ -18,7 +18,7 @@ namespace GymNotes
         public enum MuscleGroup { Back, Abs, Biceps, Chest, Forearm, Glutes, LowerLeg, Shoulder, Triceps, UpperLeg }
         public List<MuscleGroup> EnvolvedGroups { get; private set; }
 
-        public Exercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions)
+        public ExerciseSpy(string name, ExerciseType type, List<MuscleGroup> groups, string instructions)
         {
             Name = name;
             Type = type;
@@ -26,11 +26,11 @@ namespace GymNotes
             Instruction = instructions;
         }
 
-        public static ExerciseSpy Spy = new ExerciseSpy();
+        private static Spy _spy = new Spy();
 
         public static void ResetSpy()
         {
-            Spy = new ExerciseSpy();
+            _spy = new Spy();
         }
 
         public static bool TryAddExcercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions = "")
@@ -39,11 +39,11 @@ namespace GymNotes
                 return false; // TODO: empty fields message 
             if (_items.Any(e => e.Name.Equals(name)))
                 return false;// TODO: existing name message 
-            Spy.Add(name);
-            _items.Add(new Exercise(name, type, groups, instructions));
+            _spy.Add(name);
+            _items.Add(new ExerciseSpy(name, type, groups, instructions));
             return true;
         }
-        public static bool TryAddExcercise(Exercise exercise)
+        public static bool TryAddExcercise(ExerciseSpy exercise)
         {
             return TryAddExcercise(exercise.Name, exercise.Type, exercise.EnvolvedGroups, exercise.Instruction);
         }
@@ -64,11 +64,11 @@ namespace GymNotes
             return true;
         }
 
-        public static List<Exercise> SelectByGroup(List<MuscleGroup> groups)
+        public static List<ExerciseSpy> SelectByGroup(List<MuscleGroup> groups)
         {
             if (groups == null || groups.Count == 0)
                 return _items; // TODO: empty fields message
-            var result = new List<Exercise>(_items);
+            var result = new List<ExerciseSpy>(_items);
             foreach (var muscleGroup in groups)
             {
                 result.RemoveAll(e => !e.EnvolvedGroups.Contains(muscleGroup));
@@ -76,7 +76,7 @@ namespace GymNotes
             return result;
         }
 
-        public static Exercise GetByName(string name)
+        public static ExerciseSpy GetByName(string name)
         {
             var result = _items.Find(ex => String.Equals(ex.Name, name));
             if(result == null)
@@ -85,16 +85,16 @@ namespace GymNotes
             }
             else
             {
-                Spy.Request(name);
+                _spy.Request(name);
             }
             return result;
         }
 
-        public static bool Remove(Exercise exercise)
+        public static bool Remove(ExerciseSpy exercise)
         {
             var res = _items.Remove(exercise);
             if(res)
-                Spy.Remove(exercise.Name);
+                _spy.Remove(exercise.Name);
             return res;
         }
         public static bool Remove(string name)
@@ -105,7 +105,7 @@ namespace GymNotes
         {
             foreach (var exercise in _items)
             {
-                Spy.Remove(exercise.Name);
+                _spy.Remove(exercise.Name);
             }
              _items.Clear();
         }

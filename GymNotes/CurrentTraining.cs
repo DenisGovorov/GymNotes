@@ -15,14 +15,14 @@ namespace GymNotes
         public bool IsActive { get; private set; }
         public DateTime StarTime;
         private List<DummySet> _sets = new List<DummySet>();
-        public readonly List<Exercise> PlannedExercise = new List<Exercise>();
+        public readonly List<ExerciseSpy> PlannedExercise = new List<ExerciseSpy>();
 
         public void ClearPlannedList()
         {
             PlannedExercise.Clear();
         }
 
-        public void AddToPlanned(Exercise exercise)
+        public void AddToPlanned(ExerciseSpy exercise)
         {
             PlannedExercise.Add(exercise);
         }

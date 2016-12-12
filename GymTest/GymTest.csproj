@@ -37,6 +37,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbTest.cs" />
     <Compile Include="ExerciseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrainingTest.cs" />
