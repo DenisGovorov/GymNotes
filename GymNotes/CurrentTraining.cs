@@ -15,36 +15,54 @@ namespace GymNotes
         public bool IsActive { get; private set; }
         public DateTime StarTime;
         private List<Set> _sets = new List<Set>();
-        private List<Exercise> _plannedExercise = new List<Exercise>();
+        public readonly List<Exercise> PlannedExercise = new List<Exercise>();
 
         public void ClearPlannedList()
         {
-            _plannedExercise.Clear();
+            PlannedExercise.Clear();
         }
 
         public void AddToPlanned(Exercise exercise)
         {
-            _plannedExercise.Add(exercise);
+            PlannedExercise.Add(exercise);
         }
 
         public bool Start()
         {
-            if (_plannedExercise.Count == 0)
+            if (PlannedExercise.Count == 0)
                 return false;
             StarTime = DateTime.Now;
             IsActive = true;
             return true;
         }
 
-        public void AddSet(Exercise exercise, float weightDistance, int repeats = 0)
+        public bool TryAddSet(Exercise exercise, float weightDistance, int repeats = 0)
         {
-            _sets.Add(new Set(exercise, weightDistance, repeats));
+            if (IsActive && PlannedExercise.Contains(exercise))
+            {
+                _sets.Add(new Set(exercise, weightDistance, repeats));
+                return true;
+            }
+            // TODO: Unseccess message
+            return false;
         }
 
         public void Finish()
         {
             SavedTraining.Add(this, DateTime.Now);
+            Reset();
+        }
 
+        public void Reset()
+        {
+            IsActive = false;
+            ClearPlannedList();
+            _sets.Clear();
+        }
+
+        public List<Set> GetSets()
+        {
+            return _sets;
         }
     }
 }

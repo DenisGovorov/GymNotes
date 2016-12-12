@@ -17,7 +17,7 @@ namespace GymNotes
         public enum MuscleGroup { Back, Abs, Biceps, Chest, Forearm, Glutes, LowerLeg, Shoulder, Triceps, UpperLeg }
         public List<MuscleGroup> EnvolvedGroups { get; private set; }
 
-        private Exercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions)
+        public Exercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions)
         {
             Name = name;
             Type = type;
@@ -27,15 +27,18 @@ namespace GymNotes
 
         public static bool TryAddExcercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions = "")
         {
-            if (String.IsNullOrEmpty(name) || type == null || groups == null || groups.Count == 0)
+            if (String.IsNullOrEmpty(name) || type == null)
                 return false; // TODO: empty fields message 
             if (_items.Any(e => e.Name.Equals(name)))
-                return false;
+                return false;// TODO: existing name message 
 
             _items.Add(new Exercise(name, type, groups, instructions));
             return true;
         }
-
+        public static bool TryAddExcercise(Exercise exercise)
+        {
+            return TryAddExcercise(exercise.Name, exercise.Type, exercise.EnvolvedGroups, exercise.Instruction);
+        }
         public bool TryEdit(string name)
         {
             if (String.IsNullOrEmpty(name))
@@ -70,7 +73,7 @@ namespace GymNotes
             var result = _items.Find(ex => String.Equals(ex.Name, name));
             if(result == null)
             {
-                throw new KeyNotFoundException();
+                //throw new KeyNotFoundException();
             }
             return result;
         }
@@ -83,7 +86,10 @@ namespace GymNotes
         {
             return _items.Remove(GetByName(name));
         }
-
+        public static void RemoveAll()
+        {
+             _items.Clear();
+        }
         public static int GetCount()
         {
             return _items.Count;
