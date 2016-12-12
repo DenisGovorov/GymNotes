@@ -14,10 +14,10 @@ namespace GymTest
         public void FillPlan()
         {
 
-            CurrentTraining.Instance.AddToPlanned(new Exercise("Squats", Exercise.ExerciseType.Weighted,
-                new List<Exercise.MuscleGroup>() { Exercise.MuscleGroup.UpperLeg, Exercise.MuscleGroup.Glutes }, String.Empty));
-            CurrentTraining.Instance.AddToPlanned(new Exercise("Crunches", Exercise.ExerciseType.Unweigted,
-                new List<Exercise.MuscleGroup>() { Exercise.MuscleGroup.Abs }, String.Empty));
+            CurrentTraining.Instance.AddToPlanned(new ExerciseSpy("Squats", ExerciseSpy.ExerciseType.Weighted,
+                new List<ExerciseSpy.MuscleGroup>() { ExerciseSpy.MuscleGroup.UpperLeg, ExerciseSpy.MuscleGroup.Glutes }, String.Empty));
+            CurrentTraining.Instance.AddToPlanned(new ExerciseSpy("Crunches", ExerciseSpy.ExerciseType.Unweigted,
+                new List<ExerciseSpy.MuscleGroup>() { ExerciseSpy.MuscleGroup.Abs }, String.Empty));
         }
 
         [Test]
@@ -38,8 +38,8 @@ namespace GymTest
             CurrentTraining.Instance.Reset();
             FillPlan();
             var plannedExercise = CurrentTraining.Instance.PlannedExercise[0];
-            var newExercise = new Exercise("Crunches", Exercise.ExerciseType.Unweigted,
-                new List<Exercise.MuscleGroup>() {Exercise.MuscleGroup.Abs}, String.Empty);
+            var newExercise = new ExerciseSpy("Crunches", ExerciseSpy.ExerciseType.Unweigted,
+                new List<ExerciseSpy.MuscleGroup>() {ExerciseSpy.MuscleGroup.Abs}, String.Empty);
             var set = new DummySet();
             Assert.False(CurrentTraining.Instance.TryAddSet(set));
             Assert.True(CurrentTraining.Instance.Start());
@@ -70,18 +70,19 @@ namespace GymTest
         [Test] // Dummy
         public void Finish()
         {
+            var startedCount = SavedTraining.GetTrainingHistory().Count;
             CurrentTraining.Instance.Reset();
             FillPlan();
             Assert.True(CurrentTraining.Instance.Start());
             var plannedExercise = CurrentTraining.Instance.PlannedExercise[0];
             var set = new DummySet();
             Assert.True(CurrentTraining.Instance.TryAddSet(set));
-            Assert.AreEqual(SavedTraining.GetTrainingHistory().Count, 0);
+            Assert.AreEqual(SavedTraining.GetTrainingHistory().Count, startedCount);
             CurrentTraining.Instance.Finish();
             Assert.False(CurrentTraining.Instance.IsActive);
             Assert.AreEqual(CurrentTraining.Instance.PlannedExercise.Count, 0);
             Assert.AreEqual(CurrentTraining.Instance.GetSets().Count, 0);
-            Assert.AreEqual(SavedTraining.GetTrainingHistory().Count, 1);
+            Assert.AreEqual(SavedTraining.GetTrainingHistory().Count, startedCount+1);
         }
     }
 }

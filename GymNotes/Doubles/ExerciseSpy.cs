@@ -27,6 +27,7 @@ namespace GymNotes
         }
 
         private static Spy _spy = new Spy();
+        public static List<MethodCall> Calls => _spy.Calls;
 
         public static void ResetSpy()
         {
