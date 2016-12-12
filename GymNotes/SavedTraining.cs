@@ -11,7 +11,7 @@ namespace GymNotes
         private static List<SavedTraining> _history = new List<SavedTraining>();
         public DateTime StarTime;
         public TimeSpan Duration;
-        private List<Set> _sets = new List<Set>();
+        private List<DummySet> _sets = new List<DummySet>();
         public static void Add(CurrentTraining current, DateTime time)
         {
             var training = new SavedTraining()

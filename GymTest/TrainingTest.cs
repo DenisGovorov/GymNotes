@@ -32,7 +32,7 @@ namespace GymTest
             Assert.LessOrEqual(CurrentTraining.Instance.StarTime, DateTime.Now);
         }
 
-        [Test]
+        [Test] // Dummy
         public void AddSet()
         {
             CurrentTraining.Instance.Reset();
@@ -40,13 +40,12 @@ namespace GymTest
             var plannedExercise = CurrentTraining.Instance.PlannedExercise[0];
             var newExercise = new Exercise("Crunches", Exercise.ExerciseType.Unweigted,
                 new List<Exercise.MuscleGroup>() {Exercise.MuscleGroup.Abs}, String.Empty);
-            Assert.False(CurrentTraining.Instance.TryAddSet(plannedExercise, 10, 10));
-            Assert.False(CurrentTraining.Instance.TryAddSet(newExercise, 10, 10));
+            var set = new DummySet();
+            Assert.False(CurrentTraining.Instance.TryAddSet(set));
             Assert.True(CurrentTraining.Instance.Start());
-            Assert.True(CurrentTraining.Instance.TryAddSet(plannedExercise, 10, 10));
-            Assert.False(CurrentTraining.Instance.TryAddSet(newExercise, 10, 10));
+            Assert.True(CurrentTraining.Instance.TryAddSet(set));
         }
-        [Test]
+        [Test] // Dummy
         public void Reset()
         {
             CurrentTraining.Instance.Reset();
@@ -55,9 +54,9 @@ namespace GymTest
             Assert.AreEqual(CurrentTraining.Instance.GetSets().Count, 0);
             FillPlan();
             Assert.True(CurrentTraining.Instance.Start());
-
-            var plannedExercise = CurrentTraining.Instance.PlannedExercise[0];
-            Assert.True(CurrentTraining.Instance.TryAddSet(plannedExercise, 10, 10));
+            
+            var set = new DummySet();
+            Assert.True(CurrentTraining.Instance.TryAddSet(set));
 
             Assert.True(CurrentTraining.Instance.IsActive);
             Assert.Less(0, CurrentTraining.Instance.PlannedExercise.Count);
@@ -68,14 +67,15 @@ namespace GymTest
             Assert.AreEqual(CurrentTraining.Instance.PlannedExercise.Count, 0);
             Assert.AreEqual(CurrentTraining.Instance.GetSets().Count, 0);
         }
-        [Test]
+        [Test] // Dummy
         public void Finish()
         {
             CurrentTraining.Instance.Reset();
             FillPlan();
             Assert.True(CurrentTraining.Instance.Start());
             var plannedExercise = CurrentTraining.Instance.PlannedExercise[0];
-            Assert.True(CurrentTraining.Instance.TryAddSet(plannedExercise, 10, 10));
+            var set = new DummySet();
+            Assert.True(CurrentTraining.Instance.TryAddSet(set));
             Assert.AreEqual(SavedTraining.GetTrainingHistory().Count, 0);
             CurrentTraining.Instance.Finish();
             Assert.False(CurrentTraining.Instance.IsActive);

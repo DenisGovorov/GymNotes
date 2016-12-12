@@ -22,6 +22,7 @@ namespace Test
         [SetUp]
         public void SetDefault()
         {
+            Exercise.ResetSpy();
             Exercise.RemoveAll();
             foreach (var exercise in _default)
             {
@@ -39,12 +40,14 @@ namespace Test
             Assert.AreEqual(_default.Count + 1, Exercise.GetCount());
         }
 
-        [Test]
+        [Test] //Spy
         public void AddEmptyName()
         {
-            Assert.False(Exercise.TryAddExcercise("", Exercise.ExerciseType.Unweigted, new List<Exercise.MuscleGroup>() { Exercise.MuscleGroup.Abs }));
+            Exercise.ResetSpy();
+            Exercise.TryAddExcercise("", Exercise.ExerciseType.Unweigted, new List<Exercise.MuscleGroup>() { Exercise.MuscleGroup.Abs });
             var exercise = new Exercise("", Exercise.ExerciseType.Unweigted, new List<Exercise.MuscleGroup>() { Exercise.MuscleGroup.Abs }, String.Empty);
-            Assert.False(Exercise.TryAddExcercise(exercise));
+            Exercise.TryAddExcercise(exercise);
+            Assert.AreEqual(Exercise.Spy.Calls.Count, 0);
         }
         [Test]
         public void AddExistingName()
@@ -81,16 +84,19 @@ namespace Test
             Assert.IsNotNull(gottenExercise, "gottenExercise == null");
             Assert.AreSame(gottenExercise.Name, _default[0].Name);
         }
-        [Test]
+        [Test] // Spy
         public void EditName()
         {
+            Exercise.ResetSpy();
             var oldName = _default[0].Name;
             var newName = "New Name";
-            Assert.IsNull(Exercise.GetByName(newName));
-            Assert.IsNotNull(Exercise.GetByName(oldName));
-            Assert.True(Exercise.GetByName(oldName).TryEdit(newName));
-            Assert.IsNull(Exercise.GetByName(oldName));
-            Assert.IsNotNull(Exercise.GetByName(newName));
+            Exercise.GetByName(newName); 
+            Exercise.GetByName(oldName); // 1
+            Exercise.GetByName(oldName).TryEdit(newName); // 2
+            Exercise.GetByName(oldName);
+            Exercise.GetByName(newName); // 3
+
+            Assert.AreEqual(Exercise.Spy.Calls.Count, 3);
         }
         [Test]
         public void EditExistingName()
@@ -115,18 +121,17 @@ namespace Test
         [Test]
         public void RemoveExisting()
         {
+            Exercise.ResetSpy();
             var name = _default[0].Name;
-            var count = Exercise.GetCount();
             Assert.IsNotNull(Exercise.GetByName(name));
             Assert.True(Exercise.Remove(name));
             Assert.IsNull(Exercise.GetByName(name));
-            Assert.AreEqual(--count, Exercise.GetCount());
-
-            var exercise = _default[1];
+            
             Assert.IsNotNull(Exercise.GetByName(_default[1].Name));
             Assert.True(Exercise.Remove(_default[1].Name));
             Assert.IsNull(Exercise.GetByName(_default[1].Name));
-            Assert.AreEqual(--count, Exercise.GetCount());
+
+            Assert.AreEqual(Exercise.Spy.Calls.Count(c => c.MethodName == "Remove"), 2);
         }
         [Test]
         public void RemoveAll()

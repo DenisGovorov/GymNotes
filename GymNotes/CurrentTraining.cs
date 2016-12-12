@@ -14,7 +14,7 @@ namespace GymNotes
         private  CurrentTraining(){}
         public bool IsActive { get; private set; }
         public DateTime StarTime;
-        private List<Set> _sets = new List<Set>();
+        private List<DummySet> _sets = new List<DummySet>();
         public readonly List<Exercise> PlannedExercise = new List<Exercise>();
 
         public void ClearPlannedList()
@@ -36,17 +36,26 @@ namespace GymNotes
             return true;
         }
 
-        public bool TryAddSet(Exercise exercise, float weightDistance, int repeats = 0)
+        //public bool TryAddSet(Exercise exercise, float weightDistance, int repeats = 0)
+        //{
+        //    if (IsActive && PlannedExercise.Contains(exercise))
+        //    {
+        //        _sets.Add(new DummySet());
+        //        return true;
+        //    }
+        //    // TODO: Unseccess message
+        //    return false;
+        //}
+        public bool TryAddSet(DummySet set)
         {
-            if (IsActive && PlannedExercise.Contains(exercise))
+            if (IsActive)
             {
-                _sets.Add(new Set(exercise, weightDistance, repeats));
+                _sets.Add(set);
                 return true;
             }
             // TODO: Unseccess message
             return false;
         }
-
         public void Finish()
         {
             SavedTraining.Add(this, DateTime.Now);
@@ -60,7 +69,7 @@ namespace GymNotes
             _sets.Clear();
         }
 
-        public List<Set> GetSets()
+        public List<DummySet> GetSets()
         {
             return _sets;
         }

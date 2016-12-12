@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GymNotes.Doubles;
 
 namespace GymNotes
 {
@@ -25,13 +26,20 @@ namespace GymNotes
             Instruction = instructions;
         }
 
+        public static ExerciseSpy Spy = new ExerciseSpy();
+
+        public static void ResetSpy()
+        {
+            Spy = new ExerciseSpy();
+        }
+
         public static bool TryAddExcercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions = "")
         {
             if (String.IsNullOrEmpty(name) || type == null)
                 return false; // TODO: empty fields message 
             if (_items.Any(e => e.Name.Equals(name)))
                 return false;// TODO: existing name message 
-
+            Spy.Add(name);
             _items.Add(new Exercise(name, type, groups, instructions));
             return true;
         }
@@ -75,19 +83,30 @@ namespace GymNotes
             {
                 //throw new KeyNotFoundException();
             }
+            else
+            {
+                Spy.Request(name);
+            }
             return result;
         }
 
         public static bool Remove(Exercise exercise)
         {
-            return _items.Remove(exercise);
+            var res = _items.Remove(exercise);
+            if(res)
+                Spy.Remove(exercise.Name);
+            return res;
         }
         public static bool Remove(string name)
         {
-            return _items.Remove(GetByName(name));
+            return Remove(GetByName(name));
         }
         public static void RemoveAll()
         {
+            foreach (var exercise in _items)
+            {
+                Spy.Remove(exercise.Name);
+            }
              _items.Clear();
         }
         public static int GetCount()
