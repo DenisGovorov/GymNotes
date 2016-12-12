@@ -77,7 +77,7 @@ namespace GymTest
             var plannedExercise = CurrentTraining.Instance.PlannedExercise[0];
             Assert.True(CurrentTraining.Instance.TryAddSet(plannedExercise, 10, 10));
             Assert.AreEqual(SavedTraining.GetTrainingHistory().Count, 0);
-            Finish();
+            CurrentTraining.Instance.Finish();
             Assert.False(CurrentTraining.Instance.IsActive);
             Assert.AreEqual(CurrentTraining.Instance.PlannedExercise.Count, 0);
             Assert.AreEqual(CurrentTraining.Instance.GetSets().Count, 0);

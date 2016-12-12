@@ -10,7 +10,7 @@ namespace GymNotes
     {
         private static List<SavedTraining> _history = new List<SavedTraining>();
         public DateTime StarTime;
-        //public TimeSpan Duration;
+        public TimeSpan Duration;
         private List<Set> _sets = new List<Set>();
         public static void Add(CurrentTraining current, DateTime time)
         {
@@ -18,7 +18,7 @@ namespace GymNotes
             {
                 _sets = current.GetSets(),
                 StarTime = current.StarTime,
-                //Duration =  time - current.StarTime,
+                Duration =  time - current.StarTime,
             };
             _history.Add(training);
         }
