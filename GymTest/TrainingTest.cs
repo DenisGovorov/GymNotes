@@ -21,18 +21,6 @@ namespace GymTest
                 new List<ExerciseSpy.MuscleGroup>() { ExerciseSpy.MuscleGroup.Abs }, String.Empty));
         }
 
-        [Test]
-        public void Start()
-        {
-            CurrentTraining.Instance.Reset();
-            Assert.False(CurrentTraining.Instance.Start());
-            Assert.False(CurrentTraining.Instance.IsActive);
-            FillPlan();
-            Assert.True(CurrentTraining.Instance.Start());
-            Assert.True(CurrentTraining.Instance.IsActive);
-            Assert.LessOrEqual(CurrentTraining.Instance.StarTime, DateTime.Now);
-        }
-
         [Test] // Dummy
         public void AddSet()
         {
