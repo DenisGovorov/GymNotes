@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using GymNotes;
+using GymNotes.Doubles;
 
 namespace GymTest
 {
@@ -83,6 +84,54 @@ namespace GymTest
             Assert.AreEqual(CurrentTraining.Instance.PlannedExercise.Count, 0);
             Assert.AreEqual(CurrentTraining.Instance.GetSets().Count, 0);
             Assert.AreEqual(SavedTraining.GetTrainingHistory().Count, startedCount+1);
+        }
+        [Test] // Stub
+        public void SaveCalories()
+        {
+            CurrentTraining.Instance.Reset();
+            FillPlan();
+            CurrentTraining.Instance.Start();
+            var set = new DummySet();
+            CurrentTraining.Instance.TryAddSet(set);
+            CurrentTraining.Instance.Finish();
+            var history = SavedTraining.GetTrainingHistory();
+            var last = history[history.Count - 1];
+            var startCallories = last.Calories;
+            StubResult.CalculateCalories(last);
+
+            Assert.Less(startCallories, last.Calories);
+        }
+        [Test] // Stub
+        public void SaveAverge()
+        {
+            CurrentTraining.Instance.Reset();
+            FillPlan();
+            CurrentTraining.Instance.Start();
+            var set = new DummySet();
+            CurrentTraining.Instance.TryAddSet(set);
+            CurrentTraining.Instance.Finish();
+            var history = SavedTraining.GetTrainingHistory();
+            var last = history[history.Count - 1];
+            var startAverge = last.AvergeLoad;
+            StubResult.AvergeLoad(last);
+
+            Assert.Less(startAverge, last.AvergeLoad);
+        }
+        [Test] // Stub
+        public void SaveProgress()
+        {
+            CurrentTraining.Instance.Reset();
+            FillPlan();
+            CurrentTraining.Instance.Start();
+            var set = new DummySet();
+            CurrentTraining.Instance.TryAddSet(set);
+            CurrentTraining.Instance.Finish();
+            var history = SavedTraining.GetTrainingHistory();
+            var last = history[history.Count - 1];
+            var startDelta = last.ProgressDelta;
+            StubResult.ProgressDelta(last);
+
+            Assert.Less(startDelta, last.ProgressDelta);
         }
     }
 }

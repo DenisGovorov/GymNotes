@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GymNotes.Doubles;
 
 namespace GymNotes
 {
@@ -13,6 +14,9 @@ namespace GymNotes
         public TimeSpan Duration;
         private List<DummySet> _sets = new List<DummySet>();
         public Guid Id { get; private set; }
+        public float Calories = 0;
+        public float AvergeLoad = 0;
+        public float ProgressDelta = 0;
         public static void Add(CurrentTraining current, DateTime time)
         {
             var training = new SavedTraining()

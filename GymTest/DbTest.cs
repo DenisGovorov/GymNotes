@@ -12,7 +12,7 @@ namespace GymTest
     [TestFixture]
     public class DbTest
     {
-        [Test]
+        [Test] // Fake
         public void Load()
         {
             SavedTraining.RemoveAll();
@@ -20,7 +20,7 @@ namespace GymTest
             FakeTrainingDbController.Load();
             Assert.Less(startCount, SavedTraining.GetTrainingHistory().Count);
         }
-        [Test]
+        [Test]  // Fake
         public void Insert()
         {
             FakeTrainingDbController.Load();
@@ -29,7 +29,7 @@ namespace GymTest
             FakeTrainingDbController.Load();
             Assert.AreEqual(startCount+1, SavedTraining.GetTrainingHistory().Count);
         }
-        [Test]
+        [Test]  // Fake
         public void Delete()
         {
             FakeTrainingDbController.Load();
