@@ -11,5 +11,6 @@ namespace GymNotes
     {
         RationPlan GetRation(IBodyStructureDao structure, Avatar.FitGoal goal);
         RationPlan GetNormalRation(IBodyStructureDao structure);
+        bool CheckCorrection(IBodyStructureDao structure, Avatar.FitGoal goal);
     }
 }

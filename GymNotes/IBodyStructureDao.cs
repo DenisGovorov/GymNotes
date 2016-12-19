@@ -9,5 +9,7 @@ namespace GymNotes
     public interface IBodyStructureDao
     {
         bool BodyCorrespond(Avatar.FitGoal goal);
+        TrainingPlan SuggestTrainingPlan(Avatar.FitGoal goal);
+        bool CheckCorrection();
     }
 }

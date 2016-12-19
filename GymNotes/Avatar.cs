@@ -16,7 +16,8 @@ namespace GymNotes
         public IRationDao Ration;
         public IBodyStructureDao BodyStructure;
         public FitGoal Goal;
-
+        public TrainingPlan TrainingPlan = new TrainingPlan();
+        public RationPlan RationPlan = new RationPlan();
         public Avatar(IRationDao ration, IBodyStructureDao bodyStructure, FitGoal goal)
         {
             Ration = ration;
@@ -31,6 +32,15 @@ namespace GymNotes
                 return Ration.GetNormalRation(BodyStructure);
             }
             return Ration.GetRation(BodyStructure, Goal);
+        }
+        public void GetOptimalPlan()
+        {
+            TrainingPlan = BodyStructure.SuggestTrainingPlan(Goal);
+            RationPlan = GetRationPlan();
+        }
+        public bool CheckCorrection()
+        {
+            return (BodyStructure.CheckCorrection() | Ration.CheckCorrection(BodyStructure, Goal));
         }
     }
 }
