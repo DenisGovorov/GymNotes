@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using GymNotes;
+using GymNotes.Doubles;
 using Rhino.Mocks;
 
 namespace GymTest
@@ -82,6 +83,36 @@ namespace GymTest
 
             rationDao.VerifyAllExpectations();
             bodyStructureDao.VerifyAllExpectations();
+        }
+        [Test] // Partial
+        public void CompareSets()
+        {
+            FakeTrainingDbController.Load();
+            CurrentTraining.Instance.Reset();
+            Set set = MockRepository.GeneratePartialMock<Set>();
+            float delta = 1;
+            set.Exercise = new Exercise() {Name = "Squats"};
+
+            CurrentTraining.Instance.TryAddSet(set);
+            set.Expect(s => s.ComparePrevious(Set.CompareTypes.Progress)).Return(delta);
+
+            CurrentTraining.Instance.ComparePrevios(0, Set.CompareTypes.Progress);
+            
+            set.VerifyAllExpectations();
+        }
+        [Test] // Partial
+        public void ForecastSet()
+        {
+            FakeTrainingDbController.Load();
+            CurrentTraining.Instance.Reset();
+            Set set = MockRepository.GeneratePartialMock<Set>();
+            set.Exercise = new Exercise() { Name = "Squats" };
+            CurrentTraining.Instance.TryAddSet(set);
+            set.Expect(s => s.Forecast(Arg<List<Set>>.Is.Anything)).Return(new Set());
+
+            CurrentTraining.Instance.Forecast(0);
+
+            set.VerifyAllExpectations();
         }
     }
 }

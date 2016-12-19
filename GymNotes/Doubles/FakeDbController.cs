@@ -13,9 +13,10 @@ namespace GymNotes.Doubles
         static FakeTrainingDbController()
         {
             var training = new SavedTraining(DateTime.Today);
+            training.Sets.Add(new Set() { Exercise = new Exercise() {Name = "Squats" } });
             _fakeDb.Add(training.Id, training);
             training = new SavedTraining(DateTime.Today);
-            _fakeDb.Add(training.Id, training);
+            //_fakeDb.Add(training.Id, training);
         }
         public static bool Insert(SavedTraining training)
         {

@@ -12,7 +12,7 @@ namespace GymNotes
         private static List<SavedTraining> _history = new List<SavedTraining>();
         public DateTime StarTime;
         public TimeSpan Duration;
-        private List<DummySet> _sets = new List<DummySet>();
+        public List<Set> Sets = new List<Set>();
         public Guid Id { get; private set; }
         public float Calories = 0;
         public float AvergeLoad = 0;
@@ -21,7 +21,7 @@ namespace GymNotes
         {
             var training = new SavedTraining()
             {
-                _sets = current.GetSets(),
+                Sets = current.GetSets(),
                 StarTime = current.StarTime,
                 Duration =  time - current.StarTime,
                 
