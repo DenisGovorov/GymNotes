@@ -114,5 +114,74 @@ namespace GymTest
 
             set.VerifyAllExpectations();
         }
+        [Test] // Old
+        public void PostResult()
+        {
+            var mocks = new MockRepository();
+            IServerProvider serverProvider = mocks.DynamicMock<IServerProvider>();
+            var training = new SavedTraining();
+            Expect.Call(serverProvider.Connect);
+            Expect.Call(serverProvider.SendData(training));
+            mocks.ReplayAll();
+
+
+            var avatar = new Avatar(serverProvider);
+            avatar.PostResult(training);
+
+            mocks.VerifyAll();
+        }
+        [Test] // Old
+        public void Synchronize()
+        {
+            var mocks = new MockRepository();
+            IServerProvider serverProvider = mocks.DynamicMock<IServerProvider>();
+
+            Expect.Call(serverProvider.Connect);
+            Expect.Call(serverProvider.Synchronize);
+            mocks.ReplayAll();
+
+            var avatar = new Avatar(serverProvider);
+            avatar.Synchronize();
+
+            mocks.VerifyAll();
+        }
+        [Test] // Record/Playback
+        public void Share()
+        {
+            var mocks = new MockRepository();
+            IServerProvider serverProvider = mocks.DynamicMock<IServerProvider>();
+            var exer = new Exercise();
+
+            using (mocks.Record())
+            {
+                Expect.Call(serverProvider.Connect);
+                Expect.Call(serverProvider.ShareExercise(exer));
+            }
+
+            using (mocks.Playback())
+            {
+                var avatar = new Avatar(serverProvider);
+                avatar.ShareExercise(exer);
+            }
+        }
+
+        [Test] // Record/Playback
+        public void SignIn()
+        {
+            var mocks = new MockRepository();
+            IServerProvider serverProvider = mocks.DynamicMock<IServerProvider>();
+            var exer = new Exercise();
+            var avatar = new Avatar(serverProvider);
+            using (mocks.Record())
+            {
+                Expect.Call(serverProvider.Connect);
+                Expect.Call(serverProvider.SignIn(avatar));
+            }
+
+            using (mocks.Playback())
+            {
+                avatar.SignIn();
+            }
+        }
     }
 }

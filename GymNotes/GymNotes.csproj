@@ -45,6 +45,7 @@
     <Compile Include="CurrentTraining.cs" />
     <Compile Include="Doubles\ExerciseSpy.cs" />
     <Compile Include="Doubles\FakeDbController.cs" />
+    <Compile Include="Doubles\IServerProvider.cs" />
     <Compile Include="Doubles\Spy.cs" />
     <Compile Include="Doubles\StubResult.cs" />
     <Compile Include="IBodyStructureDao.cs" />

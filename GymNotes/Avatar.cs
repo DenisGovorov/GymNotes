@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GymNotes.Doubles;
 
 namespace GymNotes
 {
@@ -15,6 +16,8 @@ namespace GymNotes
 
         public IRationDao Ration;
         public IBodyStructureDao BodyStructure;
+
+        public IServerProvider ServerProvider;
         public FitGoal Goal;
         public TrainingPlan TrainingPlan = new TrainingPlan();
         public RationPlan RationPlan = new RationPlan();
@@ -24,7 +27,10 @@ namespace GymNotes
             BodyStructure = bodyStructure;
             Goal = goal;
         }
-
+        public Avatar(IServerProvider serverProvider)
+        {
+           ServerProvider = serverProvider;
+        }
         public RationPlan GetRationPlan()
         {
             if (BodyStructure.BodyCorrespond(Goal))
@@ -41,6 +47,27 @@ namespace GymNotes
         public bool CheckCorrection()
         {
             return (BodyStructure.CheckCorrection() | Ration.CheckCorrection(BodyStructure, Goal));
+        }
+
+        public void PostResult(SavedTraining training)
+        {
+            ServerProvider.Connect();
+            ServerProvider.SendData(training);
+        }
+        public void ShareExercise(Exercise exercise)
+        {
+            ServerProvider.Connect();
+            ServerProvider.ShareExercise(exercise);
+        }
+        public void Synchronize()
+        {
+            ServerProvider.Connect();
+            ServerProvider.Synchronize();
+        }
+        public void SignIn()
+        {
+            ServerProvider.Connect();
+            ServerProvider.SignIn(this);
         }
     }
 }
