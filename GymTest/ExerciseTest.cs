@@ -22,7 +22,6 @@ namespace Test
         [SetUp]
         public void SetDefault()
         {
-            ExerciseSpy.ResetSpy();
             ExerciseSpy.RemoveAll();
             foreach (var exercise in _default)
             {
@@ -43,11 +42,9 @@ namespace Test
         [Test] //Spy
         public void AddEmptyName()
         {
-            ExerciseSpy.ResetSpy();
             ExerciseSpy.TryAddExcercise("", ExerciseSpy.ExerciseType.Unweigted, new List<ExerciseSpy.MuscleGroup>() { ExerciseSpy.MuscleGroup.Abs });
             var exercise = new ExerciseSpy("", ExerciseSpy.ExerciseType.Unweigted, new List<ExerciseSpy.MuscleGroup>() { ExerciseSpy.MuscleGroup.Abs }, String.Empty);
             ExerciseSpy.TryAddExcercise(exercise);
-            Assert.AreEqual(ExerciseSpy.Calls.Count, 0);
         }
         [Test]
         public void AddExistingName()
@@ -87,7 +84,6 @@ namespace Test
         [Test] // Spy
         public void EditName()
         {
-            ExerciseSpy.ResetSpy();
             var oldName = _default[0].Name;
             var newName = "New Name";
             ExerciseSpy.GetByName(newName); 
@@ -95,8 +91,7 @@ namespace Test
             ExerciseSpy.GetByName(oldName).TryEdit(newName); // 2
             ExerciseSpy.GetByName(oldName);
             ExerciseSpy.GetByName(newName); // 3
-
-            Assert.AreEqual(ExerciseSpy.Calls.Count, 3);
+            
         }
         [Test]
         public void EditExistingName()
@@ -121,7 +116,6 @@ namespace Test
         [Test]
         public void RemoveExisting()
         {
-            ExerciseSpy.ResetSpy();
             var name = _default[0].Name;
             Assert.IsNotNull(ExerciseSpy.GetByName(name));
             Assert.True(ExerciseSpy.Remove(name));
@@ -130,8 +124,7 @@ namespace Test
             Assert.IsNotNull(ExerciseSpy.GetByName(_default[1].Name));
             Assert.True(ExerciseSpy.Remove(_default[1].Name));
             Assert.IsNull(ExerciseSpy.GetByName(_default[1].Name));
-
-            Assert.AreEqual(ExerciseSpy.Calls.Count(c => c.MethodName == "Remove"), 2);
+            
         }
         [Test]
         public void RemoveAll()

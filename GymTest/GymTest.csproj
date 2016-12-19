@@ -34,9 +34,13 @@
       <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\RhinoMocks\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvatarTest.cs" />
     <Compile Include="DbTest.cs" />
     <Compile Include="ExerciseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -41,14 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Avatar.cs" />
     <Compile Include="CurrentTraining.cs" />
     <Compile Include="Doubles\ExerciseSpy.cs" />
     <Compile Include="Doubles\FakeDbController.cs" />
     <Compile Include="Doubles\Spy.cs" />
     <Compile Include="Doubles\StubResult.cs" />
+    <Compile Include="IBodyStructureDao.cs" />
+    <Compile Include="IRationDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RationPlan.cs" />
     <Compile Include="SavedTraining.cs" />
     <Compile Include="Set.cs" />
+    <Compile Include="TrainingPlan.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

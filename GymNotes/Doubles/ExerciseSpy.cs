@@ -26,21 +26,12 @@ namespace GymNotes
             Instruction = instructions;
         }
 
-        private static Spy _spy = new Spy();
-        public static List<MethodCall> Calls => _spy.Calls;
-
-        public static void ResetSpy()
-        {
-            _spy = new Spy();
-        }
-
         public static bool TryAddExcercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions = "")
         {
             if (String.IsNullOrEmpty(name) || type == null)
                 return false; // TODO: empty fields message 
             if (_items.Any(e => e.Name.Equals(name)))
                 return false;// TODO: existing name message 
-            _spy.Add(name);
             _items.Add(new ExerciseSpy(name, type, groups, instructions));
             return true;
         }
@@ -84,18 +75,12 @@ namespace GymNotes
             {
                 //throw new KeyNotFoundException();
             }
-            else
-            {
-                _spy.Request(name);
-            }
             return result;
         }
 
         public static bool Remove(ExerciseSpy exercise)
         {
             var res = _items.Remove(exercise);
-            if(res)
-                _spy.Remove(exercise.Name);
             return res;
         }
         public static bool Remove(string name)
@@ -104,10 +89,6 @@ namespace GymNotes
         }
         public static void RemoveAll()
         {
-            foreach (var exercise in _items)
-            {
-                _spy.Remove(exercise.Name);
-            }
              _items.Clear();
         }
         public static int GetCount()
