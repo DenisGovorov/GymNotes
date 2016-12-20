@@ -55,6 +55,7 @@
     <Compile Include="RationPlan.cs" />
     <Compile Include="SavedTraining.cs" />
     <Compile Include="Set.cs" />
+    <Compile Include="TrainingManager.cs" />
     <Compile Include="TrainingPlan.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

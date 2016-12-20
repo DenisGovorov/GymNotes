@@ -8,7 +8,7 @@ namespace GymNotes.Doubles
 {
     public class FakeTrainingDbController : ITrainingDb
     {
-        private static Dictionary<Guid, SavedTraining> _fakeDb = new Dictionary<Guid, SavedTraining>();
+        private Dictionary<Guid, SavedTraining> _fakeDb = new Dictionary<Guid, SavedTraining>();
 
         //static FakeTrainingDbController()
         //{
@@ -33,7 +33,7 @@ namespace GymNotes.Doubles
         }
         public SavedTraining Select(Guid id)
         {
-            return _fakeDb.ContainsKey(id) ? null : _fakeDb[id];
+            return _fakeDb.ContainsKey(id) ? _fakeDb[id] : null;
         }
         public bool Delete(Guid id)
         {
@@ -47,5 +47,6 @@ namespace GymNotes.Doubles
         {
             _fakeDb.Clear();
         } 
+
     }
 }
