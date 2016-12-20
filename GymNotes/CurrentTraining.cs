@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GymNotes.Doubles;
 
 namespace GymNotes
 {
@@ -16,6 +17,8 @@ namespace GymNotes
         public DateTime StarTime;
         private List<Set> _sets = new List<Set>();
         public readonly List<Exercise> PlannedExercise = new List<Exercise>();
+
+        public event EventHandler TrainingFinished; 
 
         public void ClearPlannedList()
         {
@@ -68,6 +71,7 @@ namespace GymNotes
         public void Finish()
         {
             SavedTraining.Add(this, DateTime.Now);
+            OnTrainingFinished();
             Reset();
         }
 
@@ -82,5 +86,26 @@ namespace GymNotes
         {
             return _sets;
         }
+
+        protected virtual void OnTrainingFinished()
+        {
+            TrainingFinished?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SubscribeObserver(ICurrentTrainingObserver observer)
+        {
+            TrainingFinished += observer.OnTrainningFinished;
+        }
+        public void SetScheduleKeeper(IAutomaticSсheduleKeeper keeper)
+        {
+            keeper.TrainingStart += Keeper_TrainingStart;
+        }
+
+        public void Keeper_TrainingStart(object sender, EventArgs e)
+        {
+            SetAutomatic = true;
+        }
+
+        public bool SetAutomatic { get; set; }
     }
 }
