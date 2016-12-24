@@ -9,7 +9,7 @@ namespace GymNotes
 {
     public class Exercise
     {
-        private static List<Exercise> _items = new List<Exercise>();
+        public static List<Exercise> Items = new List<Exercise>();
 
         public string Name { get; set; }
         public enum ExerciseType { Weighted, Unweigted, Distance }
@@ -34,9 +34,9 @@ namespace GymNotes
         {
             if (String.IsNullOrEmpty(name) || type == null)
                 return false; // TODO: empty fields message 
-            if (_items.Any(e => e.Name.Equals(name)))
+            if (Items.Any(e => e.Name.Equals(name)))
                 return false;// TODO: existing name message 
-            _items.Add(new Exercise(name, type, groups, instructions));
+            Items.Add(new Exercise(name, type, groups, instructions));
             return true;
         }
         public static bool TryAddExcercise(Exercise exercise)
@@ -47,7 +47,7 @@ namespace GymNotes
         {
             if (String.IsNullOrEmpty(name))
                 return false; // TODO: empty fields message 
-            if (_items.Any(e => e.Name.Equals(name)))
+            if (Items.Any(e => e.Name.Equals(name)))
                 return false;
             Name = name;
             return true;
@@ -63,8 +63,8 @@ namespace GymNotes
         public static List<Exercise> SelectByGroup(List<MuscleGroup> groups)
         {
             if (groups == null || groups.Count == 0)
-                return _items; // TODO: empty fields message
-            var result = new List<Exercise>(_items);
+                return Items; // TODO: empty fields message
+            var result = new List<Exercise>(Items);
             foreach (var muscleGroup in groups)
             {
                 result.RemoveAll(e => !e.EnvolvedGroups.Contains(muscleGroup));
@@ -74,7 +74,7 @@ namespace GymNotes
 
         public static Exercise GetByName(string name)
         {
-            var result = _items.Find(ex => String.Equals(ex.Name, name));
+            var result = Items.Find(ex => String.Equals(ex.Name, name));
             if(result == null)
             {
                 //throw new KeyNotFoundException();
@@ -84,7 +84,7 @@ namespace GymNotes
 
         public static bool Remove(Exercise exercise)
         {
-            var res = _items.Remove(exercise);
+            var res = Items.Remove(exercise);
             return res;
         }
         public static bool Remove(string name)
@@ -93,11 +93,24 @@ namespace GymNotes
         }
         public static void RemoveAll()
         {
-             _items.Clear();
+             Items.Clear();
         }
         public static int GetCount()
         {
-            return _items.Count;
+            return Items.Count;
+        }
+
+        public static void Load()
+        {
+            Items.Add(new Exercise() {Name = "Squats" });
+            Items.Add(new Exercise() { Name = "Push Ups" });
+            Items.Add(new Exercise() { Name = "Pull Ups" });
+            Items.Add(new Exercise() { Name = "Crunches" });
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

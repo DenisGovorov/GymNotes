@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GymNotes;
 
 namespace UiForms
 {
@@ -15,6 +16,34 @@ namespace UiForms
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Exercise.Load();
+            foreach (var exercise in Exercise.Items)
+            {
+                LbAll.Items.Add(exercise);
+            }
+        }
+
+        private void Choose_Click(object sender, EventArgs e)
+        {
+            ThrowItem(LbAll, LbSelected);
+        }
+
+        private void ThrowItem(ListBox source, ListBox goal)
+        {
+            var item = source.SelectedItem;
+            if (item == null) return;
+
+            goal.Items.Add(item);
+            source.Items.Remove(item);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ThrowItem(LbSelected, LbAll);
         }
     }
 }
