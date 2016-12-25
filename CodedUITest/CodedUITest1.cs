@@ -23,13 +23,44 @@ namespace CodedUITest
         }
 
         [TestMethod]
-        public void CodedUITestMethod1()
+        public void StartAddPlay()
         {
             // Чтобы создать код для этого теста, выберите в контекстном меню команду "Формирование кода для кодированного теста пользовательского интерфейса", а затем выберите один из пунктов меню.
             this.UIMap.Start();
             this.UIMap.AddSquats();
             this.UIMap.PressStart();
+            
+            this.UIMap.AssertStarted();
+            this.UIMap.AssertSelectedOne();
+
+            this.UIMap.Close();
+        }
+        [TestMethod]
+        public void StartEmptyPlay()
+        {
+            this.UIMap.Start();
+            this.UIMap.PressStart();
+            
+            this.UIMap.AssertMessageCantStart();
+            this.UIMap.AssertSelectedEmpty();
+
+            this.UIMap.Close();
+        }
+        [TestMethod]
+        public void StartAddRemove()
+        {
+            this.UIMap.Start();
+
+            this.UIMap.AssertSelectedEmpty();
+
+            this.UIMap.AddSquats();
+
+            this.UIMap.AssertSelectedOne();
+
             this.UIMap.RemoveSquats();
+
+            this.UIMap.AssertSelectedEmpty();
+            
             this.UIMap.Close();
         }
 

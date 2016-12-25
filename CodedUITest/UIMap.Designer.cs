@@ -102,6 +102,58 @@ namespace CodedUITest
             Mouse.Click(uIItemButton, new Point(37, 9));
         }
         
+        /// <summary>
+        /// AssertMessageCantStart - Используйте "AssertMessageCantStartExpectedValues" для передачи параметров в этот метод.
+        /// </summary>
+        public void AssertMessageCantStart()
+        {
+            #region Variable Declarations
+            WinEdit uITbMessageEdit = this.UIMainWindow.UITbMessageWindow.UITbMessageEdit;
+            #endregion
+
+            // Убедитесь, что свойство Text "TbMessage" надпись равняется "Can't start. Select exercise"
+            Assert.AreEqual(this.AssertMessageCantStartExpectedValues.UITbMessageEditText, uITbMessageEdit.Text);
+        }
+        
+        /// <summary>
+        /// AssertStarted - Используйте "AssertStartedExpectedValues" для передачи параметров в этот метод.
+        /// </summary>
+        public void AssertStarted()
+        {
+            #region Variable Declarations
+            WinEdit uITbMessageEdit = this.UIMainWindow.UITbMessageWindow.UITbMessageEdit;
+            #endregion
+
+            // Убедитесь, что свойство Text "TbMessage" надпись равняется "Training Started"
+            Assert.AreEqual(this.AssertStartedExpectedValues.UITbMessageEditText, uITbMessageEdit.Text);
+        }
+        
+        /// <summary>
+        /// AssertSelectedEmpty - Используйте "AssertSelectedEmptyExpectedValues" для передачи параметров в этот метод.
+        /// </summary>
+        public void AssertSelectedEmpty()
+        {
+            #region Variable Declarations
+            WinList uILbSelectedList = this.UIMainWindow.UILbSelectedWindow.UILbSelectedList;
+            #endregion
+
+            // Убедитесь, что свойство SelectedItemsAsString "LbSelected" список равняется "0"
+            Assert.AreEqual(this.AssertSelectedEmptyExpectedValues.UILbSelectedListSelectedItemsAsString, uILbSelectedList.Items.Count.ToString());
+        }
+        
+        /// <summary>
+        /// AssertSelectedOne - Используйте "AssertSelectedOneExpectedValues" для передачи параметров в этот метод.
+        /// </summary>
+        public void AssertSelectedOne()
+        {
+            #region Variable Declarations
+            WinList uILbSelectedList = this.UIMainWindow.UILbSelectedWindow.UILbSelectedList;
+            #endregion
+
+            // Убедитесь, что свойство SelectedItemsAsString "LbSelected" список равняется "1"
+            Assert.AreEqual(this.AssertSelectedOneExpectedValues.UILbSelectedListSelectedItemsAsString, uILbSelectedList.Items.Count.ToString());
+        }
+        
         #region Properties
         public virtual AddSquatsParams AddSquatsParams
         {
@@ -124,6 +176,54 @@ namespace CodedUITest
                     this.mRemoveSquatsParams = new RemoveSquatsParams();
                 }
                 return this.mRemoveSquatsParams;
+            }
+        }
+        
+        public virtual AssertMessageCantStartExpectedValues AssertMessageCantStartExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertMessageCantStartExpectedValues == null))
+                {
+                    this.mAssertMessageCantStartExpectedValues = new AssertMessageCantStartExpectedValues();
+                }
+                return this.mAssertMessageCantStartExpectedValues;
+            }
+        }
+        
+        public virtual AssertStartedExpectedValues AssertStartedExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertStartedExpectedValues == null))
+                {
+                    this.mAssertStartedExpectedValues = new AssertStartedExpectedValues();
+                }
+                return this.mAssertStartedExpectedValues;
+            }
+        }
+        
+        public virtual AssertSelectedEmptyExpectedValues AssertSelectedEmptyExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertSelectedEmptyExpectedValues == null))
+                {
+                    this.mAssertSelectedEmptyExpectedValues = new AssertSelectedEmptyExpectedValues();
+                }
+                return this.mAssertSelectedEmptyExpectedValues;
+            }
+        }
+        
+        public virtual AssertSelectedOneExpectedValues AssertSelectedOneExpectedValues
+        {
+            get
+            {
+                if ((this.mAssertSelectedOneExpectedValues == null))
+                {
+                    this.mAssertSelectedOneExpectedValues = new AssertSelectedOneExpectedValues();
+                }
+                return this.mAssertSelectedOneExpectedValues;
             }
         }
         
@@ -156,6 +256,14 @@ namespace CodedUITest
         private AddSquatsParams mAddSquatsParams;
         
         private RemoveSquatsParams mRemoveSquatsParams;
+        
+        private AssertMessageCantStartExpectedValues mAssertMessageCantStartExpectedValues;
+        
+        private AssertStartedExpectedValues mAssertStartedExpectedValues;
+        
+        private AssertSelectedEmptyExpectedValues mAssertSelectedEmptyExpectedValues;
+        
+        private AssertSelectedOneExpectedValues mAssertSelectedOneExpectedValues;
         
         private UIDebugWindow mUIDebugWindow;
         
@@ -190,6 +298,66 @@ namespace CodedUITest
         /// Выберите "Squats" в "LbSelected" список
         /// </summary>
         public string UILbSelectedListSelectedItemsAsString = "Squats";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Параметры для передачи в "AssertMessageCantStart"
+    /// </summary>
+    [GeneratedCode("Построитель кодированных тестов ИП", "14.0.23107.0")]
+    public class AssertMessageCantStartExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Убедитесь, что свойство Text "TbMessage" надпись равняется "Can't start. Select exercise"
+        /// </summary>
+        public string UITbMessageEditText = "Can\'t start. Select exercise";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Параметры для передачи в "AssertStarted"
+    /// </summary>
+    [GeneratedCode("Построитель кодированных тестов ИП", "14.0.23107.0")]
+    public class AssertStartedExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Убедитесь, что свойство Text "TbMessage" надпись равняется "Training Started"
+        /// </summary>
+        public string UITbMessageEditText = "Training Started";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Параметры для передачи в "AssertSelectedEmpty"
+    /// </summary>
+    [GeneratedCode("Построитель кодированных тестов ИП", "14.0.23107.0")]
+    public class AssertSelectedEmptyExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Убедитесь, что свойство SelectedItemsAsString "LbSelected" список равняется "0"
+        /// </summary>
+        public string UILbSelectedListSelectedItemsAsString = "0";
+        #endregion
+    }
+    
+    /// <summary>
+    /// Параметры для передачи в "AssertSelectedOne"
+    /// </summary>
+    [GeneratedCode("Построитель кодированных тестов ИП", "14.0.23107.0")]
+    public class AssertSelectedOneExpectedValues
+    {
+        
+        #region Fields
+        /// <summary>
+        /// Убедитесь, что свойство SelectedItemsAsString "LbSelected" список равняется "1"
+        /// </summary>
+        public string UILbSelectedListSelectedItemsAsString = "1";
         #endregion
     }
     
@@ -379,6 +547,18 @@ namespace CodedUITest
                 return this.mUIItemWindow1;
             }
         }
+        
+        public UITbMessageWindow UITbMessageWindow
+        {
+            get
+            {
+                if ((this.mUITbMessageWindow == null))
+                {
+                    this.mUITbMessageWindow = new UITbMessageWindow(this);
+                }
+                return this.mUITbMessageWindow;
+            }
+        }
         #endregion
         
         #region Fields
@@ -393,6 +573,8 @@ namespace CodedUITest
         private UILbSelectedWindow mUILbSelectedWindow;
         
         private UIItemWindow11 mUIItemWindow1;
+        
+        private UITbMessageWindow mUITbMessageWindow;
         #endregion
     }
     
@@ -606,6 +788,41 @@ namespace CodedUITest
         
         #region Fields
         private WinButton mUIItemButton;
+        #endregion
+    }
+    
+    [GeneratedCode("Построитель кодированных тестов ИП", "14.0.23107.0")]
+    public class UITbMessageWindow : WinWindow
+    {
+        
+        public UITbMessageWindow(UITestControl searchLimitContainer) : 
+                base(searchLimitContainer)
+        {
+            #region Условия поиска
+            this.SearchProperties[WinWindow.PropertyNames.ControlName] = "TbMessage";
+            this.WindowTitles.Add("Main");
+            #endregion
+        }
+        
+        #region Properties
+        public WinEdit UITbMessageEdit
+        {
+            get
+            {
+                if ((this.mUITbMessageEdit == null))
+                {
+                    this.mUITbMessageEdit = new WinEdit(this);
+                    #region Условия поиска
+                    this.mUITbMessageEdit.WindowTitles.Add("Main");
+                    #endregion
+                }
+                return this.mUITbMessageEdit;
+            }
+        }
+        #endregion
+        
+        #region Fields
+        private WinEdit mUITbMessageEdit;
         #endregion
     }
 }
