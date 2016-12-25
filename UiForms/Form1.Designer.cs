@@ -46,12 +46,13 @@
             this.BtnStart.TabIndex = 0;
             this.BtnStart.Text = "Start Training";
             this.BtnStart.UseVisualStyleBackColor = true;
+            this.BtnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
             // TbMessage
             // 
             this.TbMessage.Location = new System.Drawing.Point(15, 230);
             this.TbMessage.Name = "TbMessage";
-            this.TbMessage.Size = new System.Drawing.Size(100, 20);
+            this.TbMessage.Size = new System.Drawing.Size(195, 20);
             this.TbMessage.TabIndex = 1;
             // 
             // LbAll

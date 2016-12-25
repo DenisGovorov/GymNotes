@@ -45,5 +45,15 @@ namespace UiForms
         {
             ThrowItem(LbSelected, LbAll);
         }
+
+        private void BtnStart_Click(object sender, EventArgs e)
+        {
+            if (LbSelected.Items.Count > 0)
+                TbMessage.Text = "Training Started";
+            else
+            {
+                TbMessage.Text = "Can't start. Select exercise";
+            }
+        }
     }
 }
