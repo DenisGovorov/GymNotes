@@ -26,6 +26,11 @@ namespace CodedUITest
         public void CodedUITestMethod1()
         {
             // Чтобы создать код для этого теста, выберите в контекстном меню команду "Формирование кода для кодированного теста пользовательского интерфейса", а затем выберите один из пунктов меню.
+            this.UIMap.Start();
+            this.UIMap.AddSquats();
+            this.UIMap.PressStart();
+            this.UIMap.RemoveSquats();
+            this.UIMap.Close();
         }
 
         #region Дополнительные атрибуты тестирования
@@ -64,5 +69,20 @@ namespace CodedUITest
             }
         }
         private TestContext testContextInstance;
+
+        public UIMap UIMap
+        {
+            get
+            {
+                if ((this.map == null))
+                {
+                    this.map = new UIMap();
+                }
+
+                return this.map;
+            }
+        }
+
+        private UIMap map;
     }
 }

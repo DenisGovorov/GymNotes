@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymTest", "GymTest\GymTest.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiForms", "UiForms\UiForms.csproj", "{0CBF96A3-5E86-4B96-B960-7BF97EAECF78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodedUITest", "CodedUITest\CodedUITest.csproj", "{F21A2930-1576-41D9-86B8-AD72CFA8ACE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0CBF96A3-5E86-4B96-B960-7BF97EAECF78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CBF96A3-5E86-4B96-B960-7BF97EAECF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CBF96A3-5E86-4B96-B960-7BF97EAECF78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F21A2930-1576-41D9-86B8-AD72CFA8ACE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F21A2930-1576-41D9-86B8-AD72CFA8ACE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F21A2930-1576-41D9-86B8-AD72CFA8ACE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F21A2930-1576-41D9-86B8-AD72CFA8ACE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
