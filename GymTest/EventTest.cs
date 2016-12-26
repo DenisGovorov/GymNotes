@@ -15,7 +15,7 @@ namespace GymTest
     public class EventTest
     {
         [Test]
-        public void EventInvoke()
+        public void TestEventInvoke()
         {
             var mocks = new MockRepository();
             var keeper = mocks.DynamicMock<IAutomaticSсheduleKeeper>();
@@ -30,7 +30,7 @@ namespace GymTest
         }
 
         [Test]
-        public void EventSubscibe()
+        public void TestEventRaisingByMethodInvoking()
         {
             var notifier = MockRepository.GenerateMock<SystemNotifier>();
             notifier.Expect(not => not.OnTrainningFinished(CurrentTraining.Instance, EventArgs.Empty));
@@ -42,7 +42,7 @@ namespace GymTest
         }
 
         [Test]
-        public void EventParamObjectEventSubscibe()
+        public void TestSubscribingWhenSendAsParam()
         {
             var keeper = MockRepository.GenerateMock<IAutomaticSсheduleKeeper>();
 

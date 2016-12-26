@@ -17,10 +17,14 @@ namespace GymNotes
         public IRationDao Ration;
         public IBodyStructureDao BodyStructure;
 
+        public List<Exercise> ExerciseCollection = new List<Exercise>();
         public IServerProvider ServerProvider;
         public FitGoal Goal;
         public TrainingPlan TrainingPlan = new TrainingPlan();
         public RationPlan RationPlan = new RationPlan();
+
+        public bool Synchronized { get; private set; }
+
         public Avatar(IRationDao ration, IBodyStructureDao bodyStructure, FitGoal goal)
         {
             Ration = ration;
@@ -49,25 +53,24 @@ namespace GymNotes
             return (BodyStructure.CheckCorrection() | Ration.CheckCorrection(BodyStructure, Goal));
         }
 
-        public void PostResult(SavedTraining training)
+        public bool PostResult(SavedTraining training)
         {
-            ServerProvider.Connect();
-            ServerProvider.SendData(training);
+            return ServerProvider.SendDataAsync(training).Result;
         }
-        public void ShareExercise(Exercise exercise)
+        public void GetExercise(Guid id)
         {
-            ServerProvider.Connect();
-            ServerProvider.ShareExercise(exercise);
+            var exercise = ServerProvider.GetExerciseAsync(id).Result;
+            if (exercise != null)
+                ExerciseCollection.Add(exercise);
         }
         public void Synchronize()
         {
-            ServerProvider.Connect();
-            ServerProvider.Synchronize();
+            var syncObject = ServerProvider.SynchronizeAsync().Result;
+            Synchronize(syncObject);
         }
-        public void SignIn()
+        private void Synchronize(SynchronizationObject syncObject)
         {
-            ServerProvider.Connect();
-            ServerProvider.SignIn(this);
+            Synchronized = true;
         }
     }
 }
