@@ -57,7 +57,7 @@ namespace GymNotes
                 return true;
             //}
             // TODO: Unseccess message
-            return false;
+            //return false;
         }
 
         public void ComparePrevios(int index, Set.CompareTypes compare)

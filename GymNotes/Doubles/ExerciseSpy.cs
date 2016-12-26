@@ -32,7 +32,7 @@ namespace GymNotes
         }
         public static bool TryAddExcercise(string name, ExerciseType type, List<MuscleGroup> groups, string instructions = "")
         {
-            if (String.IsNullOrEmpty(name) || type == null)
+            if (String.IsNullOrEmpty(name))
                 return false; // TODO: empty fields message 
             if (_items.Any(e => e.Name.Equals(name)))
                 return false;// TODO: existing name message 
