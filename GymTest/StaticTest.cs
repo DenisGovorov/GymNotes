@@ -24,11 +24,15 @@ namespace GymTest
 
             bodyStructureDao.Expect(body => body.BodyCorrespond(goal)).Return(true);
             rationDao.Expect(rat => rat.GetNormalRation(bodyStructureDao)).Return(new RationPlan());
+            AvatarRation ration = new AvatarRation();
+            AvatarBodyStructure bodyStructure = new AvatarBodyStructure();
 
             var avatar = new Avatar(rationDao, bodyStructureDao, goal);
 
             avatar.GetRationPlan();
 
+            Assert.AreEqual(ration.RationDao, rationDao);
+            Assert.AreEqual(bodyStructure.BodyStructure, bodyStructureDao);
             rationDao.VerifyAllExpectations();
             bodyStructureDao.VerifyAllExpectations();
         }
@@ -43,11 +47,15 @@ namespace GymTest
 
             bodyStructureDao.Expect(body => body.BodyCorrespond(goal)).Return(false);
             rationDao.Expect(rat => rat.GetRation(bodyStructureDao, goal)).Return(new RationPlan());
+            AvatarRation ration = new AvatarRation();
+            AvatarBodyStructure bodyStructure = new AvatarBodyStructure();
 
             var avatar = new Avatar(rationDao, bodyStructureDao, goal);
 
             avatar.GetRationPlan();
 
+            Assert.AreEqual(ration.RationDao, rationDao);
+            Assert.AreEqual(bodyStructure.BodyStructure, bodyStructureDao);
             rationDao.VerifyAllExpectations();
             bodyStructureDao.VerifyAllExpectations();
         }
@@ -60,11 +68,15 @@ namespace GymTest
             bodyStructureDao.Expect(body => body.BodyCorrespond(Arg<Avatar.FitGoal>.Is.Anything)).Return(false);
             bodyStructureDao.Expect(body => body.SuggestTrainingPlan(Arg<Avatar.FitGoal>.Is.Anything)).Return(new TrainingPlan());
             rationDao.Expect(rat => rat.GetRation(Arg<IBodyStructureDao>.Is.Anything, Arg<Avatar.FitGoal>.Is.Anything)).Return(new RationPlan());
+            AvatarRation ration = new AvatarRation();
+            AvatarBodyStructure bodyStructure = new AvatarBodyStructure();
 
             var avatar = new Avatar(rationDao, bodyStructureDao, Arg<Avatar.FitGoal>.Is.Anything);
 
             avatar.GetOptimalPlan();
 
+            Assert.AreEqual(ration.RationDao, rationDao);
+            Assert.AreEqual(bodyStructure.BodyStructure, bodyStructureDao);
             rationDao.VerifyAllExpectations();
             bodyStructureDao.VerifyAllExpectations();
         }
