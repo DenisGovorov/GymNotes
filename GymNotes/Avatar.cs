@@ -14,11 +14,11 @@ namespace GymNotes
             Health, GrowMuscle, BurnFat
         }
 
-        public IRationDao Ration;
-        public IBodyStructureDao BodyStructure;
+        public static IRationDao Ration;
+        public static IBodyStructureDao BodyStructure;
 
         public List<Exercise> ExerciseCollection = new List<Exercise>();
-        public IServerProvider ServerProvider;
+        public static IServerProvider ServerProvider;
         public FitGoal Goal;
         public TrainingPlan TrainingPlan = new TrainingPlan();
         public RationPlan RationPlan = new RationPlan();
@@ -72,5 +72,19 @@ namespace GymNotes
         {
             Synchronized = true;
         }
+    }
+
+    public class AvatarRation
+    {
+        public virtual IRationDao RationDao { get { return Avatar.Ration; } }
+    }
+
+    public class AvatarBodyStructure
+    {
+        public virtual IBodyStructureDao BodyStructure { get { return Avatar.BodyStructure; } }
+    }
+    public class AvatarServerProvider
+    {
+        public virtual IServerProvider ServerProvider { get { return Avatar.ServerProvider; } }
     }
 }
